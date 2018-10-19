@@ -3,24 +3,37 @@
 Connect to PostgreSQL database
 The following command connects to a database under a specific user. After pressing Enter PostgreSQL will ask for the password of the user.
 
+```
 psql -d database -U  user -W
+```
+
 For example, to connect to dvdrental database under postgres user, you use the following command:
 
-C:\Program Files\PostgreSQL\9.5\bin>psql -d dvdrental -U postgres -W
+```
+$ psql -d dvdrental -U postgres -W
 Password for user postgres:
 dvdrental=#
+```
 
 If you want to connect to a database that resides on another host, you add the -h option as follows:
 
+```
 psql -h host -d database -U user -W
+```
+
 In case you want to use SSL mode for the connection, just specify it in the command as the following command:
 
+```
 psql -U user -h host "dbname=db sslmode=require"
+```
+
 Switch connection to a new database
 Once you are connected to a database, you can switch the connection to a new database under a user specified by user. The previous connection will be closed. If you omit the user parameter, the current user is assumed.
 
-1
+```
 \c dbname username
+```
+
 The following command connects to dvdrental database under postgres user:
 
 1
