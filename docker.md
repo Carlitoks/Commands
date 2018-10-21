@@ -186,3 +186,65 @@ Docker is automatically configured to start on boot using `upstart`. To disable 
 ### chkconfig
 
 ```$ sudo chkconfig docker on```
+
+## Docker Compose
+
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
+
+### Prerequisites
+
+Docker Compose relies on Docker Engine for any meaningful work, so make sure you have Docker Engine installed either locally or remote, depending on your setup.
+
+-. first install the Docker for your OS as described on the Get Docker page, then come back here for instructions on installing Compose on Linux systems.
+-. To run Compose as a non-root user
+
+### Install Compose on Linux systems
+
+On Linux, you can download the Docker Compose binary from the Compose repository release page on GitHub. Follow the instructions from the link, which involve running the `curl` command in your terminal to download the binaries. These step by step instructions are also included below.
+
+1. Run this command to download the latest version of Docker Compose:
+
+```bash
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+```
+
+#### Use the latest Compose release number in the download command
+
+`The above command is an example, and it may become out-of-date. To ensure you have the latest version, check the Compose repository release page on GitHub.`
+
+2. Apply executable permissions to the binary:
+
+```bash
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+```
+
+3. Test the installation.
+
+```bash
+
+$ docker-compose --version
+docker-compose version 1.22.0, build 1719ceb
+
+```
+
+### Uninstallation
+
+To uninstall Docker Compose if you installed using curl:
+
+```bash
+
+sudo rm /usr/local/bin/docker-compose
+
+```
+
+## Install command completion
+
+### Bash
+
+Make sure bash completion is installed.
+
+-. On a current Linux OS (in a non-minimal installation), bash completion should be available.
