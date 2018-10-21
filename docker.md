@@ -249,4 +249,33 @@ Make sure bash completion is installed.
 
 - On a current Linux OS (in a non-minimal installation), bash completion should be available.
 
+Place the completion script in `/etc/bash_completion.d/`
+
+```bash
+sudo curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+```
+
+You can source your ~/.bash_profile or launch a new terminal to utilize completion.
+
+### Zsh
+
+Place the completion script in your `/path/to/zsh/completion` (typically `~/.zsh/completion/`):
+
+```Zsh
+mkdir -p ~/.zsh/completion
+curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
+```
+
+Include the directory in your `$fpath` by adding in `~/.zshrc`:
+
+```fpath=(~/.zsh/completion $fpath)```
+
+Make sure `compinit` is loaded or do it by adding in `~/.zshrc`:
+
+```autoload -Uz compinit && compinit -i```
+
+Then reload your shell:
+
+```exec $SHELL -l```
+
 [Source](https://docs.docker.com)
