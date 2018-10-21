@@ -19,6 +19,20 @@ list of basic [plsql](plsql.md) commands
 
 ## bash Setups
 
+### Granting Administrative Privileges
+
+To avoid having to log out of our normal user and log back in as the *root* account, we can set up what is known as "superuser" or *root* privileges for our normal account. This will allow our normal user to run commands with administrative privileges by putting the word `sudo` before each command.
+
+To add these privileges to our new user, we need to add the new user to the *sudo* group. By default, on Debian 9, users who belong to the *sudo* group are allowed to use the `sudo` command.
+
+As *root*, run this command to add your new user to the *sudo* group (substitute with your user):
+
+```bash
+
+usermod -aG sudo carlitoks
+
+```
+
 ### Multiple Terminals in one window
 
 Use Terminator
