@@ -2,7 +2,8 @@
 
 ##  Uninstall old versions
 Older versions of Docker were called `docker` or `docker-engine`. If these are installed, uninstall them:
-``` $ apt-get remove docker docker-engine docker.io ```
+
+``` $ apt remove docker docker-engine docker.io ```
 ## Install using the repository
 Before you install Docker CE for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
 
@@ -10,10 +11,11 @@ Before you install Docker CE for the first time on a new host machine, you need 
 1. Update the `apt` package index:
 
 ``` $ apt update ```
+
 2. Install packages to allow `apt` to use a repository over HTTPS:
 
 ``` 
-$ apt-get install \
+$ apt -y install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -51,13 +53,13 @@ Note: Starting with Docker 17.06, stable releases are also pushed to the edge an
 1. Update the apt package index.
 
 ```
-$ apt-get update
+$ apt update
 ```
 
 2. Install the latest version of Docker CE, or go to the next step to install a specific version:
 
 ```
-$ apt-get install docker-ce
+$ apt install docker-ce
 ```
 
 3. To install a specific version of Docker CE, list the available versions in the repo, then select and install:
