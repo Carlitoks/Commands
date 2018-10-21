@@ -249,3 +249,4 @@ Make sure bash completion is installed.
 
 - On a current Linux OS (in a non-minimal installation), bash completion should be available.
 
+[Source](https://docs.docker.com)
