@@ -195,8 +195,8 @@ Compose is a tool for defining and running multi-container Docker applications. 
 
 Docker Compose relies on Docker Engine for any meaningful work, so make sure you have Docker Engine installed either locally or remote, depending on your setup.
 
--. first install the Docker for your OS as described on the Get Docker page, then come back here for instructions on installing Compose on Linux systems.
--. To run Compose as a non-root user
+- first install the Docker for your OS as described on the Get Docker page, then come back here for instructions on installing Compose on Linux systems.
+- To run Compose as a non-root user
 
 ### Install Compose on Linux systems
 
@@ -247,4 +247,5 @@ sudo rm /usr/local/bin/docker-compose
 
 Make sure bash completion is installed.
 
--. On a current Linux OS (in a non-minimal installation), bash completion should be available.
+- On a current Linux OS (in a non-minimal installation), bash completion should be available.
+

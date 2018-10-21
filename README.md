@@ -2,7 +2,11 @@
 
 ## Docker
 
-## Psql
+install and setup for [docker](docker.md) on linux
+
+## Plsql
+
+list of basic [plsql](plsql.md) commands
 
 ## Visual Studio Code Extensions
 
