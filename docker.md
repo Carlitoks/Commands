@@ -53,34 +53,103 @@ Note: Starting with Docker 17.06, stable releases are also pushed to the edge an
 1. Update the apt package index.
 
 ```
-$ apt update
+$ apt -y update
 ```
 
 2. Install the latest version of Docker CE, or go to the next step to install a specific version:
 
 ```
-$ apt install docker-ce
+$ apt -y install docker-ce
 ```
 
 3. To install a specific version of Docker CE, list the available versions in the repo, then select and install:
    a. List the versions available in your repo:
 
+```
 $ apt-cache madison docker-ce
 
 docker-ce | 18.03.0~ce-0~debian | https://download.docker.com/linux/debian jessie/stable amd64 Packages
-b. Install a specific version by its fully qualified package name, which is the package name (docker-ce) plus the version string (2nd column) up to the first hyphen, separated by an equals sign (=), for example, docker-ce=18.03.0.ce.
+```
 
-$ sudo apt-get install docker-ce=<VERSION_STRING>
+   b. Install a specific version by its fully qualified package name, which is the package name (docker-ce) plus the version string (2nd column) up to the first hyphen, separated by an equals sign (=), for example, docker-ce=18.03.0.ce.
+
+```
+$ apt -y install docker-ce=<VERSION_STRING>
+```
+
 The Docker daemon starts automatically.
 
-Verify that Docker CE is installed correctly by running the hello-world image.
+### Verify that Docker CE is installed correctly by running the hello-world image.
 
-x86_64:
-
+```
 $ sudo docker run hello-world
-armhf:
+```
 
-$ sudo docker run armhf/hello-world
 This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.
 
-Docker CE is installed and running. The docker group is created but no users are added to it. You need to use sudo to run Docker commands. Continue to Linux postinstall to allow non-privileged users to run Docker commands and for other optional configuration steps. For Raspbian, you can optionally install Docker Compose for Raspbian.
+Docker CE is installed and running. The docker group is created but no users are added to it. You need to use sudo to run Docker commands. 
+
+## Manage Docker as a non-root user
+The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can only access it using `sudo`. The Docker daemon always runs as the `root` user.
+
+If you don’t want to preface the `docker` command with `sudo`, create a Unix group called docker and add users to it. When the Docker daemon starts, it creates a Unix socket accessible by members of the `docker` group.
+
+To create the `docker` group and add your user:
+
+1. Create the `docker` group.
+
+``` $ sudo groupadd docker ```
+
+2. Add your user to the `docker` group.
+
+``` $ sudo usermod -aG docker $USER ```
+
+3. Log out and log back in so that your group membership is re-evaluated.
+
+If testing on a virtual machine, it may be necessary to restart the virtual machine for changes to take effect.
+
+On a desktop Linux environment such as X Windows, log out of your session completely and then log back in.
+
+4. Verify that you can run `docker` commands without `sudo`.
+
+``` $ docker run hello-world ```
+
+This command downloads a test image and runs it in a container. When the container runs, it prints an informational message and exits.
+
+If you initially ran Docker CLI commands using `sudo` before adding your user to the `docker` group, you may see the following error, which indicates that your `~/.docker/` directory was created with incorrect permissions due to the `sudo` commands.
+
+```
+WARNING: Error loading config file: /home/user/.docker/config.json -
+stat /home/user/.docker/config.json: permission denied
+```
+
+To fix this problem, either remove the `~/.docker/` directory (it is recreated automatically, but any custom settings are lost), or change its ownership and permissions using the following commands:
+
+```
+$ sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+$ sudo chmod g+rwx "$HOME/.docker" -R
+```
+
+## Configure Docker to start on boot
+Most current Linux distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher) use `systemd` to manage which services start when the system boots. Ubuntu 14.10 and below use `upstart`.
+
+#### systemd
+
+```
+$ sudo systemctl enable docker
+```
+
+To disable this behavior, use `disable` instead.
+
+```
+$ sudo systemctl disable docker
+```
+
+#### upstart
+Docker is automatically configured to start on boot using `upstart`. To disable this behavior, use the following command:
+
+``` $ echo manual | sudo tee /etc/init/docker.override ```
+
+#### chkconfig
+
+``` $ sudo chkconfig docker on ```
